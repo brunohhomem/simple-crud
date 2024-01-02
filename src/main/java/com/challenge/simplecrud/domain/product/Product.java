@@ -12,11 +12,15 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Product {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    private String id; //String p usar UUID
 
     private String name;
 
-    private Number price_in_cents;
+    private Integer price_in_cents;
 
+    public Product(ProductDTO requestProduct){
+        this.name = requestProduct.name();
+        this.price_in_cents = requestProduct.price_in_cents();
+    }
 }
