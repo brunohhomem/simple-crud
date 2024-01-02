@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.challenge</groupId>
 	<artifactId>simple-crud</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>simple-crud</name>
 	<description>This is a simple crud project to understand my level</description>
 	<properties>
@@ -41,9 +41,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<version>8.2.0</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
