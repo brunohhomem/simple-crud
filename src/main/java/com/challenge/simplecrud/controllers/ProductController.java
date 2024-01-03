@@ -14,14 +14,18 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-
     @Autowired
     private ProductRepository productRepository;
 
     @GetMapping
     public ResponseEntity getAllProducts(){
-//        var allProducts = productRepository.findAll();
         return ResponseEntity.ok(productRepository.findAll());
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity getAllProductsActive(){
+//        return ResponseEntity.ok(productRepository.findAll());
+        return ResponseEntity.ok(productRepository.findAllByActiveTrue()); //Ao inves de retornar todos os produtos, retorna apenas os ativos
     }
 
     @PostMapping
@@ -49,8 +53,22 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteProduct(@PathVariable String id){
-        productRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+    @Transactional
+    public ResponseEntity deleteProduct(@PathVariable String id){{
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if(optionalProduct.isPresent()){
+            Product product = optionalProduct.get();
+            product.setActive(false);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-}
+
+//    Desabilitando o metodo de excluir o produto por id, para usar o método de inativar o produto
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity deleteProduct(@PathVariable String id){
+//        productRepository.deleteById(id);
+//        return ResponseEntity.noContent().build();
+//    }
+}}
